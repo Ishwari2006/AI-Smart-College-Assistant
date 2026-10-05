@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FAQ - AI Smart College Assistant</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f5ff;
+            color: #17152b;
+        }
+
+        .navbar {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4520a8;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #5b21b6;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 25px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #24105c;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .faq-box {
+            background: white;
+            margin-bottom: 15px;
+            padding: 22px 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4520a8;
+            margin-bottom: 10px;
+        }
+
+        .answer {
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">AI Smart College Assistant</div>
+
+        <a href="/" class="back">← Back to Dashboard</a>
+    </div>
+
+    <div class="container">
+
+        <h1>Frequently Asked Questions</h1>
+
+<p class="subtitle">
+    Find quick answers to common college-related questions.
+</p>
+
+<div class="faq-container">
+
+    {% for item in faqs %}
+
+    <div class="faq-box">
+
+        <div class="question">
+            ❓ {{ item.question }}
+        </div>
+
+        <div class="answer">
+            {{ item.answer }}
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="faq-box">
+        <div class="question">
+            ❓ No FAQs Available
+        </div>
+
+        <div class="answer">
+            There are currently no frequently asked questions.
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+</body>
+</html>

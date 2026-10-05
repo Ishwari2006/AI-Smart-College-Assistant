@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff - FAQ Management</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            color: white;
+            background: #007bff;
+            margin-left: 5px;
+        }
+
+        .back {
+            background: #5b21b6;
+        }
+
+        .faq-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .answer {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .edit {
+            background: #2e1891;
+        }
+
+        .delete {
+            background: #f11515;
+        }
+
+        .empty {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+        <h1>📚 FAQ Management</h1>
+
+        <div>
+            <a href="{% url 'staff_dashboard' %}" class="btn back">
+                ← Dashboard
+            </a>
+
+            <a href="{% url 'staff_faq_add' %}" class="btn">
+                + Add FAQ
+            </a>
+        </div>
+    </div>
+
+
+    {% if faqs %}
+
+        {% for faq in faqs %}
+
+        <div class="faq-card">
+
+            <div class="question">
+                ❓ {{ faq.question }}
+            </div>
+
+            <div class="answer">
+                {{ faq.answer }}
+            </div>
+
+            <a href="{% url 'staff_faq_edit' faq.id %}" class="btn edit">
+                Edit
+            </a>
+
+            <a href="{% url 'staff_faq_delete' faq.id %}" class="btn delete">
+                Delete
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            <h3>No FAQs available</h3>
+            <p>Click "Add FAQ" to create a new FAQ.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

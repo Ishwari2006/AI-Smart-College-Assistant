@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #dc3545;
+        }
+
+        p {
+            color: #555;
+            font-size: 17px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+            margin: 5px;
+        }
+
+        .delete {
+            background: #f11515;
+        }
+
+        .cancel {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>⚠️ Confirm Delete</h1>
+
+    <p>
+        Are you sure you want to delete this item?
+    </p>
+
+    <p>
+        <strong>{{ object }}</strong>
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <button type="submit" class="btn delete">
+            Yes, Delete
+        </button>
+
+        <a href="javascript:history.back()" class="btn cancel">
+            Cancel
+        </a>
+    </form>
+
+</div>
+
+</body>
+</html>

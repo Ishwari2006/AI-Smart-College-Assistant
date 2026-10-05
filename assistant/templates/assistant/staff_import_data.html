@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Import College Data</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f3fa;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #35166f;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo h2 {
+            font-size: 21px;
+        }
+
+        .logo p {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 13px 15px;
+            margin: 7px 0;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .menu a:hover {
+            background: #51269a;
+        }
+
+        .menu .active {
+            background: #6d3bc0;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 240px;
+            min-height: 100vh;
+            padding: 35px;
+        }
+
+        .topbar {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .topbar h1 {
+            color: #35166f;
+            font-size: 27px;
+            margin-bottom: 5px;
+        }
+
+        .topbar p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 850px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .card h2 {
+            color: #35166f;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* ================= INFO BOX ================= */
+
+        .info-box {
+            background: #f3effc;
+            border-left: 5px solid #6d3bc0;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .info-box h3 {
+            color: #35166f;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* ================= UPLOAD ================= */
+
+        .upload-box {
+            border: 2px dashed #b8a6d8;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            background: #faf9fd;
+            margin-bottom: 20px;
+        }
+
+        .upload-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .upload-box h3 {
+            color: #35166f;
+            margin-bottom: 8px;
+        }
+
+        .upload-box p {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .btn {
+            display: inline-block;
+            background: #35166f;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #51269a;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #35166f;
+            border: 1px solid #35166f;
+            padding: 11px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: #35166f;
+            color: white;
+        }
+
+        /* ================= MESSAGES ================= */
+
+        .success {
+            background: #e8f7ee;
+            color: #176b3a;
+            border-left: 5px solid #28a745;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #fdeaea;
+            color: #a12626;
+            border-left: 5px solid #dc3545;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* ================= RESULTS ================= */
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .result-card {
+            background: #f8f6fc;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .result-card h3 {
+            color: #35166f;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .result-card p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .results {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+                padding: 20px;
+            }
+
+            .topbar h1 {
+                font-size: 22px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .results {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .sidebar {
+                width: 170px;
+            }
+
+            .main {
+                margin-left: 170px;
+                padding: 15px;
+            }
+
+            .sidebar a {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .upload-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h2>🎓 College Assistant</h2>
+            <p>Staff Panel</p>
+        </div>
+
+        <div class="menu">
+
+            <a href="{% url 'staff_dashboard' %}">
+                🏠 Dashboard
+            </a>
+
+            <a href="{% url 'staff_notices' %}">
+                📢 Notices
+            </a>
+
+            <a href="{% url 'staff_timetable' %}">
+                📅 Timetable
+            </a>
+
+            <a href="{% url 'staff_assignments' %}">
+                📝 Assignments
+            </a>
+
+            <a href="{% url 'chatbot' %}">
+                🤖 AI Assistant
+            </a>
+
+            <a href="{% url 'staff_faq' %}">
+                ❓ FAQ
+            </a>
+
+            <a href="{% url 'staff_import_data' %}" class="active">
+                📥 Import Data
+            </a>
+
+            <a href="{% url 'logout' %}">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>📥 Import College Data</h1>
+
+            <p>
+                Upload an Excel file to add college data in bulk.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Bulk Data Import</h2>
+
+            <p class="description">
+                Upload a single Excel workbook containing notices,
+                assignments, timetable and FAQ data. The system will
+                automatically import the data into the database.
+            </p>
+
+
+            <!-- ================= SUCCESS ================= -->
+
+            {% if success %}
+
+            <div class="success">
+
+                <strong>✅ Data imported successfully!</strong>
+
+                <p style="margin-top:8px;">
+                    New records have been added to the database.
+                    Existing records were not deleted.
+                </p>
+
+            </div>
+
+
+            <div class="results">
+
+                <div class="result-card">
+                    <h3>{{ imported.notices }}</h3>
+                    <p>New Notices</p>
+                </div>
+
+                <div class="result-card">
+                    <h3>{{ imported.assignments }}</h3>
+                    <p>New Assignments</p>
+                </div>
+
+                <div class="result-card">
+                    <h3>{{ imported.timetable }}</h3>
+                    <p>New Timetable Records</p>
+                </div>
+
+                <div class="result-card">
+                    <h3>{{ imported.faq }}</h3>
+                    <p>New FAQs</p>
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- ================= ERROR ================= -->
+
+            {% if error %}
+
+            <div class="error">
+
+                <strong>❌ Import Error</strong>
+
+                <p style="margin-top:8px;">
+                    {{ error }}
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- ================= FORMAT INFO ================= -->
+
+            <div class="info-box">
+
+                <h3>📊 Excel File Format</h3>
+
+                <ul>
+                    <li><strong>Notices</strong> – title, description</li>
+
+                    <li>
+                        <strong>Assignments</strong> –
+                        title, subject, description, due_date
+                    </li>
+
+                    <li>
+                        <strong>Timetable</strong> –
+                        timetable_type, day, subject,
+                        start_time, end_time
+                    </li>
+
+                    <li>
+                        <strong>FAQ</strong> –
+                        question, answer
+                    </li>
+                </ul>
+
+            </div>
+
+
+            <!-- ================= UPLOAD FORM ================= -->
+
+            <form method="POST"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="upload-box">
+
+                    <div class="upload-icon">
+                        📁
+                    </div>
+
+                    <h3>
+                        Select Excel File
+                    </h3>
+
+                    <p>
+                        Only .xlsx Excel files are supported.
+                    </p>
+
+                    <input
+                        type="file"
+                        name="file"
+                        accept=".xlsx"
+                        required
+                    >
+
+                    <br>
+
+                    <button
+                        type="submit"
+                        class="btn">
+                        📤 Upload & Import Data
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- ================= BACK ================= -->
+
+            <a href="{% url 'staff_dashboard' %}"
+               class="back-btn">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

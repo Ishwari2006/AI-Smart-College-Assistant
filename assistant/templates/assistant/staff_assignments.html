@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff - Assignments</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        .header {
+            background: #1e3a8a;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .top-buttons {
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-right: 8px;
+        }
+
+        .add {
+            background: #16a34a;
+        }
+
+        .dashboard {
+            background: #23259c;
+        }
+
+        .table-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #1e3a8a;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .edit {
+            background: #2e1891;
+        }
+
+        .delete {
+            background: #f11515;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📝 Assignments</h1>
+    <p>Manage college assignments</p>
+</div>
+
+<div class="container">
+
+    <div class="top-buttons">
+
+        <a href="{% url 'staff_dashboard' %}"
+           class="btn dashboard">
+            ← Dashboard
+        </a>
+
+        <a href="{% url 'staff_assignment_add' %}"
+           class="btn add">
+            + Add Assignment
+        </a>
+
+    </div>
+
+    <div class="table-box">
+
+        {% if assignments %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Subject</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for assignment in assignments %}
+
+                <tr>
+
+                    <td>
+                        {{ assignment.title }}
+                    </td>
+
+                    <td>
+                        {{ assignment.subject }}
+                    </td>
+
+                    <td>
+                        {{ assignment.description }}
+                    </td>
+
+                    <td>
+                        {{ assignment.due_date }}
+                    </td>
+
+                    <td>
+
+                        <a href="{% url 'staff_assignment_edit' assignment.id %}"
+                           class="btn edit">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'staff_assignment_delete' assignment.id %}"
+                           class="btn delete">
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+            <div class="empty">
+                <h3>No assignments found</h3>
+                <p>
+                    Click "Add Assignment" to create a new assignment.
+                </p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

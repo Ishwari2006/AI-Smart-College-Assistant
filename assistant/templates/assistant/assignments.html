@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments - AI Smart College Assistant</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f5ff;
+            color: #17152b;
+        }
+
+        .navbar {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4520a8;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            background: #5b21b6;
+            padding: 10px 20px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 45px 70px;
+        }
+
+        h1 {
+            color: #24105c;
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .assignment-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .assignment-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #5b21b6;
+        }
+
+        .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .assignment-card h2 {
+            color: #4520a8;
+            margin-bottom: 12px;
+        }
+
+        .assignment-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .deadline {
+            font-weight: bold;
+            color: #b42318;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 12px;
+            background: #eee8ff;
+            color: #4520a8;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            🎓 AI Smart College Assistant
+        </div>
+
+        <a href="/" class="back-btn">
+            ← Dashboard
+        </a>
+    </div>
+
+    <div class="assignment-container">
+
+    {% for assignment in assignments %}
+
+        <div class="assignment-card">
+
+            <div class="icon">📝</div>
+
+            <h2>{{ assignment.title }}</h2>
+
+            <p>
+                <strong>Subject:</strong> {{ assignment.subject }}
+            </p>
+
+            <p>
+                {{ assignment.description }}
+            </p>
+
+            <div class="deadline">
+                📅 Due Date: {{ assignment.due_date }}
+            </div>
+
+            <div class="status">
+                Pending
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <div class="assignment-card">
+
+            <div class="icon">📚</div>
+
+            <h2>No Assignments Available</h2>
+
+            <p>
+                There are currently no assignments.
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+</body>
+</html>
